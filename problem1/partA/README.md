@@ -28,20 +28,20 @@ https://github.com/jskariah/ECE366-Project-2
 4. Save any changes
 5. Assemble (F3)
 6. Go (F5)
-7. View the calculated result. *Execute Tab -> Data Segement (Unselect Hexademical values to make reading it easier)
+7. View the calculated result. *Execute Tab -> Data Segement (Unselect Hexademical values to make reading it easier)*
 8. Input n is stored at 0x10010000
 9. The output result is stored at 0x10010004
 
 **Expected Results**
 *Input n -> Output*
-0 -> 0
-1 -> 1
-2 -> 1
-5 -> 5
-6 -> 8
-7 -> 13
-10 -> 55
-15 -> 610
+- 0 -> 0
+- 1 -> 1
+- 2 -> 1
+- 5 -> 5
+- 6 -> 8
+- 7 -> 13
+- 10 -> 55
+- 15 -> 610
 
 
 
