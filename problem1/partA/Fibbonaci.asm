@@ -1,6 +1,6 @@
 
 .data
-n:          .word 15
+n:          .word 7
 fib_result: .word 0
 
 .text
