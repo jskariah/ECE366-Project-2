@@ -38,6 +38,6 @@ done:
     # stores fibonacci result in memory
     sw $t2, fib_result
 
-    # exit program
+    # exit the program
     li $v0, 10
     syscall
