@@ -19,7 +19,7 @@ GitHub Repository Link: https://github.com/jskariah/ECE366-Project-2
 How To Run the Program
   1. First have the MARS 4.5 Simulator
   2. Open IsOdd.asm in MARS
-  3. Change m:.word 15 --> change the number 15 to a nonnegative integer 
+  3. Change m:.word 15 --> change the number 15 to a nonnegative integer input
   4. Save any changes
   5. Assemble (F3)
   6. Go (F5)
