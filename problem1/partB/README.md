@@ -14,7 +14,7 @@ Contribution of Team Members
   - Hamza: Focused mainly writing the MIPS assembly code.
   - Niraj: Helped with debugging, testing the program, and writing the README file.
 
-GitHub Repository Link:
+GitHub Repository Link: https://github.com/jskariah/ECE366-Project-2
 
 How To Run the Program
   1. First have the MARS 4.5 Simulator
