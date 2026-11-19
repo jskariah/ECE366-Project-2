@@ -1,13 +1,15 @@
 .data
-n:              .word 7     # input n
+n:              .word 15     # input n
 is_fib_odd_res: .word 0     # output: 1 if Fib(n) is odd, 0 if even
 
 .text
 .globl main
 
 main:
+    
     lw $a0, n                       # Load n from memory                               
 
+    
     jal Fibonacci                   # Call Fibonacci(n)
 
     # Pass Fibonacci result to IsOdd
@@ -100,6 +102,7 @@ div_loop:
     addi $t0, $t0, 1            # Increment quotient
 
     j div_loop                  # Repeat loop
+
 
 div_done:
     # Return remainder
