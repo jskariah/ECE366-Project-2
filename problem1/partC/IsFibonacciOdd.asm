@@ -4,61 +4,83 @@ is_fib_odd_res: .word 0     # output: 1 if Fib(n) is odd, 0 if even
 
 .text
 .globl main
+
 main:
-    lw   $a0, n                 # load n from memory into $a0
-    jal  Fibonacci              # call Fibonacci(n), result in $v0
+    
+    lw $a0, n       # Load n from memory                               
 
-    move $a0, $v0               # pass Fib(n) as the input to IsOdd
-    jal  IsOdd                  # call IsOdd(Fib(n)), result in $v0
+    
+    jal Fibonacci       # Call Fibonacci(n)
 
-    sw   $v0, is_fib_odd_res    # store 1 or 0 in memory
+    # Pass Fibonacci result to IsOdd
+    add $a0, $v0, $zero
+    jal IsOdd
 
-    li   $v0, 10                # exit program
+    
+    sw $v0, is_fib_odd_res      # Store final result in memory
+
+    # Exit program
+    addi $v0, $zero, 10
     syscall
 
-# -----------------------------------------------------------------
 # Function: Fibonacci(n)
 # Input:  $a0 = n (non-negative integer)
 # Output: $v0 = nth Fibonacci number
-# -----------------------------------------------------------------
-Fibonacci:
-    ble  $a0, 1, fib_base       # if n <= 1, return n
 
-    li   $t1, 0                 # a = 0
-    li   $t2, 1                 # b = 1
-    li   $t3, 0                 # i = 0
-    addi $t4, $a0, -1           # loop runs n - 1 times
+Fibonacci:
+    # Check base cases n = 0 and n = 1
+    beq $a0, $zero, fib_base
+
+    addi $t6, $zero, 1
+    beq $a0, $t6, fib_base
+
+    # Initialize Fibonacci variables
+    addi $t1, $zero, 0      # a = 0
+    addi $t2, $zero, 1      # b = 1
+    addi $t3, $zero, 0      # i = 0
+
+    addi $t4, $a0, -1       # n - 1
 
 fib_loop:
-    beq  $t3, $t4, fib_done     # stop after n - 1 iterations
-    move $t5, $t2               # temp = b
-    addu $t2, $t1, $t2          # b = a + b
-    move $t1, $t5               # a = temp
-    addi $t3, $t3, 1            # i++
-    j    fib_loop
+    # Stop after n-1 iterations
+    beq $t3, $t4, fib_done
+
+    add $t5, $t2, $zero     # temp = b
+    add $t2, $t1, $t2       # b = a + b
+    add $t1, $t5, $zero     # a = temp
+
+    addi $t3, $t3, 1        # i++
+    j fib_loop
 
 fib_base:
-    move $t2, $a0               # b = n so it returns n
+    add $t2, $a0, $zero  # return n
+
 
 fib_done:
-    move $v0, $t2               # return b
-    jr   $ra                    # return to main
+    add $v0, $t2, $zero  # return result
+    jr $ra
 
-# -----------------------------------------------------------------
 # Function: IsOdd(m)
 # Input:  $a0 = m (non-negative integer)
 # Output: $v0 = 1 if m is odd, 0 if m is even
-# -----------------------------------------------------------------
+
 IsOdd:
-    addi $sp, $sp, -4           # save return address on stack
-    sw   $ra, 0($sp)
+    # Save return address
+    addi $sp, $sp, -4
+    sw $ra, 0($sp)
 
-    li   $a1, 2                 # second argument y = 2
-    jal  division               # call division(m, 2), remainder in $v0
+    # Set divisor to 2
+    addi $a1, $zero, 2
 
-    beq  $v0, $zero, is_even    # if remainder == 0, return False
-    li   $v0, 1                 # else return True
-    j    end_is_odd
+    # Call division(m, 2)
+    jal division
+
+    # Check remainder
+    beq $v0, $zero, is_even
+
+    # Remainder is 1 (odd)
+    addi $v0, $zero, 1
+    j end_is_odd
 
 is_even:
     li   $v0, 0
