@@ -7,17 +7,16 @@ is_fib_odd_res: .word 0     # output: 1 if Fib(n) is odd, 0 if even
 
 main:
     
-    lw $a0, n       # Load n from memory                               
+    lw $a0, n                       # Load n from memory                               
 
     
-    jal Fibonacci       # Call Fibonacci(n)
+    jal Fibonacci                   # Call Fibonacci(n)
 
     # Pass Fibonacci result to IsOdd
     add $a0, $v0, $zero
     jal IsOdd
 
-    
-    sw $v0, is_fib_odd_res      # Store final result in memory
+    sw $v0, is_fib_odd_res          # Store final result in memory
 
     # Exit program
     addi $v0, $zero, 10
@@ -65,45 +64,47 @@ fib_done:
 # Output: $v0 = 1 if m is odd, 0 if m is even
 
 IsOdd:
-    # Save return address
-    addi $sp, $sp, -4
+    addi $sp, $sp, -4           # Save return address
     sw $ra, 0($sp)
 
-    # Set divisor to 2
-    addi $a1, $zero, 2
+    addi $a1, $zero, 2          # Set divisor to 2
 
-    # Call division(m, 2)
-    jal division
+    jal division                # Call division(m, 2)
 
-    # Check remainder
-    beq $v0, $zero, is_even
+    beq $v0, $zero, is_even     # Check remainder
 
-    # Remainder is 1 (odd)
-    addi $v0, $zero, 1
+    addi $v0, $zero, 1          # Remainder is 1 (odd)
     j end_is_odd
 
 is_even:
-    li   $v0, 0
+    addi $v0, $zero, 0          # Remainder is 0 (even)
+
 
 end_is_odd:
-    lw   $ra, 0($sp)            # restore return address
+    lw $ra, 0($sp)              # Restore return address
     addi $sp, $sp, 4
-    jr   $ra
+    jr $ra
 
-# -----------------------------------------------------------------
 # Function: division(x, y) - Division by Repeated Subtraction (Fig 3)
 # Input:  $a0 = x (dividend), $a1 = y (divisor)
 # Output: $v0 = remainder (x % y)
-# -----------------------------------------------------------------
+
 division:
-    li   $t0, 0                 # quotient = 0
+    addi $t0, $zero, 0          # Initialize quotient
 
 div_loop:
-    blt  $a0, $a1, div_done     # while (x >= y): exit if x < y
-    sub  $a0, $a0, $a1          # x = x - y
-    addi $t0, $t0, 1            # quotient = quotient + 1
-    j    div_loop
+    # Check if x < y
+    slt $t6, $a0, $a1
+    bne $t6, $zero, div_done
+
+    sub $a0, $a0, $a1           # Subtract y from x
+
+    addi $t0, $t0, 1            # Increment quotient
+
+    j div_loop                  # Repeat loop
+
 
 div_done:
-    move $v0, $a0               # return remaining x (remainder)
-    jr   $ra
+    # Return remainder
+    add $v0, $a0, $zero
+    jr $ra
