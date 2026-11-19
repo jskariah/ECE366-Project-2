@@ -8,10 +8,10 @@
 4. Niraj Patel -> npate449@uic.edu
 
 **Contribution of Team Members**
-- Justin: 
-- Rithvik: 
-- Hamza: 
-- Niraj: 
+- Justin: Helped identify errors, tested the final program.
+- Rithvik: Focused mainly on writing MIPS assembly code for the final program.
+- Hamza: Helped write the code, tested the program, and corrected coding mistakes.
+- Niraj: Prepared for README file.
 
 **GitHub Repository Link**
 https://github.com/jskariah/ECE366-Project-2
